@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CountryList {
 
-    public ArrayList<Country> countryList = new ArrayList<Country>();
+    private final ArrayList<Country> countryList = new ArrayList<Country>();
 
     public CountryList() {
         countryList.add(new Country("China",1420062022,9388211,39));
@@ -210,11 +210,16 @@ public class CountryList {
         countryList.add(new Country("Seychelles",95702,460,36));
     }
 
-    public Country findCountry(CountryChecker tester) {
-        for (Country c: countryList) {
-            if (tester.test(c)) {
-                return c;
-            }
+    public ArrayList<Country> getList (String category) {
+        if (category.toLowerCase() == "age") {
+            countryList.sort((c1, c2) -> (c1.getAge() - c2.getAge()));
+            return countryList;
+        } else if (category.toLowerCase() == "name") {
+            countryList.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+            return countryList;
+        } else if (category.toLowerCase() == "population") {
+            countryList.sort((c1, c2) -> c1.getPopulation() - c2.getPopulation());
+            return countryList;
         }
         return null;
     }
